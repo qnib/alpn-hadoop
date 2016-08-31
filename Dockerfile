@@ -7,5 +7,6 @@ RUN apk add --update curl bc jq nmap \
 ADD opt/hadoop/etc/hadoop/hadoop-env.sh \
     opt/hadoop/etc/hadoop/mapred-site.xml \
     /opt/hadoop/etc/hadoop/
-RUN adduser -D -s /bin/bash hadoop
+RUN adduser -D -s /bin/bash hadoop \
+ && echo "/opt/hadoop/bin/hdfs getconf -namenodes" >> /root/.bash_history
 ADD etc/bashrc.hadoop /etc/
