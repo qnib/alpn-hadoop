@@ -10,3 +10,8 @@ ADD opt/hadoop/etc/hadoop/hadoop-env.sh \
 RUN adduser -D -s /bin/bash hadoop \
  && echo "/opt/hadoop/bin/hdfs getconf -namenodes" >> /root/.bash_history
 ADD etc/bashrc.hadoop /etc/
+
+## Use coreutils compiled on overlay-host, to allow df to work
+ADD packages/ /tmp/packages/
+RUN apk add --update --allow-untrusted /tmp/packages/coreutils-8.25-r0.apk \
+ && rm -rf /tmp/packages /var/cache/apk/*
